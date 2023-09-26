@@ -17,8 +17,9 @@ const showAllCountries = (countries) => {
     const newDiv = document.createElement("div");
     newDiv.classList.add("col-sm-4");
     newDiv.innerHTML = `
-    <div class="card mb-3   bg-secondary-subtle text-center shadow rounded-5 p-1 ">
-  <div class="card-body   text-primary-emphasis ">
+    <div class="py-3 h-100 ">
+    <div class="card  h-100 bg-secondary-subtle text-center shadow rounded-5 p-1 ">
+  <div class="card-body  text-primary-emphasis ">
   <img src=${png} style="width:75px">
   <h3 class="fs-2 " style=color:red;>Name: ${countryName}</h3>
   <p>Capital: ${capital}</p>
@@ -26,6 +27,7 @@ const showAllCountries = (countries) => {
   <p>Population: ${population}</p>
   <button class=" bg-success primary rounded-5" onclick="showSingleCountry ('${countryName}')">
   Details</button>
+  </div>
   </div>
   </div>`;
     users.appendChild(newDiv);
@@ -52,8 +54,8 @@ const showSingleCountry = (countryName) => {
       newDiv.innerHTML = "";
       newDiv.classList.add("container");
       newDiv.innerHTML = `
-      <div class="card mb-3  bg-dark-subtle fs-2 text-center shadow rounded-5 p-1 border border-info  border-5 ">
-      <div class="card-body   text-primary-emphasis ">
+      <div class="card  mb-3   bg-dark-subtle fs-2 text-center shadow rounded-5 p-1 border border-info  border-5 ">
+      <div class="card-body    text-primary-emphasis ">
       <img  class="rounded mx-auto "  src=${png} style="width:100px">
 <h3 style=font-size:50px;>Name: ${countryName}</h3>
 <p>Region: ${region}</p>
