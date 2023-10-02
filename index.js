@@ -1,24 +1,28 @@
 const postId = document.getElementById("postId");
 const SeePost = document.getElementById("SeePost");
+const loading = document.getElementById("loading");
 
 const ViewPost = document.getElementById("ViewPost");
 
 const users = document.getElementById("users");
 const signleCountry = document.getElementById("singleCountry");
 
-
-
-const showPost = () => {
+const showPost = async () => {
   const name = postId.value;
+  loading.innerHTML = "Loading....";
+  try {
+    await fetch(`https://restcountries.com/v3.1/name/${name}`)
+      .then((response) => response.json())
 
-  fetch(`https://restcountries.com/v3.1/name/${name}`)
-    .then((response) => response.json())
-
-    .then((json) => showAllCountriess(json));
+      .then((json) => showAllCountriess(json));
+    loading.innerHTML = "";
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const showAllCountriess = (countries) => {
-  ViewPost.innerHTML="";
+  ViewPost.innerHTML = "";
   console.log(countries);
   countries.map((country) => {
     const {
@@ -45,36 +49,20 @@ const showAllCountriess = (countries) => {
   </div>
   </div>`;
 
- 
-  ViewPost.appendChild(newDiv);
+    ViewPost.appendChild(newDiv);
   });
 };
+try {
+  fetch("https://restcountries.com/v3.1/all")
+    .then((response) => response.json())
+    .then((json) => showAllCountries(json /* .slice(0,15) */));
+} catch (error) {
+  console.log(error);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-fetch("https://restcountries.com/v3.1/all")
-  .then((response) => response.json())
-  .then((json) => showAllCountries(json /* .slice(0,15) */));
-const showAllCountries = (countries) => {
+const showAllCountries = async (countries) => {
   console.log(countries);
-  countries.map((country) => {
+  await countries.map((country) => {
     const {
       name: { common: countryName },
       capital,
@@ -101,9 +89,10 @@ const showAllCountries = (countries) => {
     users.appendChild(newDiv);
   });
 };
-const showSingleCountry = (countryName) => {
+const showSingleCountry = async (countryName) => {
+  loading.innerHTML = "Loading....";
   signleCountry.innerHTML = "";
-  fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+  await fetch(`https://restcountries.com/v3.1/name/${countryName}`)
     .then((response) => response.json())
     .then((json) => {
       const {
@@ -118,6 +107,7 @@ const showSingleCountry = (countryName) => {
         flags: { png },
         maps: { googleMaps },
       } = json[0];
+
       const newDiv = document.createElement("div");
       newDiv.innerHTML = "";
       newDiv.classList.add("container");
@@ -141,6 +131,7 @@ const showSingleCountry = (countryName) => {
 <a class="text-danger" href=${googleMaps}>Country Map</a>
 </div>
   </div>`;
+      loading.innerHTML = "";
       signleCountry.appendChild(newDiv);
     });
 };
