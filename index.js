@@ -43,6 +43,7 @@ const showAllCountriess = (countries) => {
   </div>
   </div>
   </div>`;
+
   ViewPost.innerHTML="";
   ViewPost.appendChild(newDiv);
   });
