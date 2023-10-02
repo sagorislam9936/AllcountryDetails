@@ -18,6 +18,7 @@ const showPost = () => {
 };
 
 const showAllCountriess = (countries) => {
+  ViewPost.innerHTML="";
   console.log(countries);
   countries.map((country) => {
     const {
@@ -44,7 +45,7 @@ const showAllCountriess = (countries) => {
   </div>
   </div>`;
 
-  ViewPost.innerHTML="";
+ 
   ViewPost.appendChild(newDiv);
   });
 };
