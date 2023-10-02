@@ -1,8 +1,37 @@
-#users{
-   
+#users {
   font-size: 30px;
   text-align: center;
-padding-top: 50px;
+  padding-top: 50px;
+}
+
+.borderr {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+#SeePost{
+  color: green;
+  padding: 5px;
+ font-size: 20px;
+  background-color: rgb(184, 160, 148);
+  border-radius: 100px;
+}
+#SeePost:hover{
+background-color: red;
+color: white;
 
 }
 
+#postId{
+  padding-left: 15px;
+  border-radius: 100px;
+  font-size: 20px;
+}
+#postId:hover{
+  padding-left: 10px;
+  font-size: 25px;
+  border: 2px solid red;
+  background-color: aqua;
+  color: black;
+}
