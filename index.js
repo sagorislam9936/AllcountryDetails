@@ -1,30 +1,80 @@
-const postId = document.getElementById("postId");
-const SeePost = document.getElementById("SeePost");
 const loading = document.getElementById("loading");
+const btn = document.getElementById("btn");
+const showUser = document.getElementById("showUser");
 
-const ViewPost = document.getElementById("ViewPost");
-
-const users = document.getElementById("users");
+const CountryName = document.getElementById("CountryName");
+const btnForCountry = document.getElementById("btnForCountry");
+const ViewCountry = document.getElementById("ViewCountry");
 const signleCountry = document.getElementById("singleCountry");
 
-const showPost = async () => {
-  const name = postId.value;
+const users = document.getElementById("users");
+const Errorr = document.getElementById("Errorr");
+
+/* user section JavaScript */
+
+const SingleUser = async () => {
+  loading.innerHTML = "Loading....";
+  try {
+    await fetch("https://randomuser.me/api/?results=1")
+      .then((response) => response.json())
+      .then((data) => userDetails(data.results));
+    loading.innerHTML = "";
+  } catch (error) {
+    Errorr.innerHTML = "Error";
+  }
+};
+
+const userDetails = (users) => {
+  console.log(users);
+  users.map((user) => {
+    const {
+      picture: { medium },
+      name: { title, first, last },
+      gender,
+      email,
+      phone,
+    } = user;
+
+    const newDiv = document.createElement("div");
+    newDiv.classList.add("col-sm-12");
+    newDiv.innerHTML = `
+    <div class="py-3  ">
+    <div class="card   bg-secondary-subtle text-center shadow rounded-5 p-1 ">
+  <div class="card-body  text-primary-emphasis ">
+<img src="${medium}" alt="user pic" style="width: 75px;">
+<h5 style=" padding-top: 30px;">User Full Details</h5>
+<h2 class="text-danger py-1">${title} ${first} ${last}</h2>
+<h4>${gender} </h4>
+<h4>${email} </h4>
+<h4>${phone} </h4>
+</div>
+  </div>
+  </div>`;
+    showUser.innerHTML = "";
+    showUser.appendChild(newDiv);
+  });
+};
+
+/* Search by country name section */
+
+const showCountry = async () => {
+  const name = CountryName.value;
   loading.innerHTML = "Loading....";
   try {
     await fetch(`https://restcountries.com/v3.1/name/${name}`)
       .then((response) => response.json())
 
-      .then((json) => showAllCountriess(json));
+      .then((json) => searchCountries(json));
     loading.innerHTML = "";
   } catch (error) {
-    console.log(error);
+    Errorr.innerHTML = "Error";
   }
 };
 
-const showAllCountriess = (countries) => {
-  ViewPost.innerHTML = "";
+const searchCountries = async (countries) => {
+  ViewCountry.innerHTML = "";
   console.log(countries);
-  countries.map((country) => {
+  await countries.map((country) => {
     const {
       name: { common: countryName },
       capital,
@@ -35,29 +85,34 @@ const showAllCountriess = (countries) => {
     const newDiv = document.createElement("div");
     newDiv.classList.add("m-auto");
     newDiv.innerHTML = `
-    <div class="py-3 h-100 ">
-    <div class="card  h-100 bg-secondary-subtle text-center shadow rounded-5 p-1 ">
+    <div class="py-3  ">
+    <div class="card  bg-secondary-subtle text-center shadow rounded-5 p-1 ">
   <div class="card-body  text-primary-emphasis ">
   <img src=${png} style="width:75px">
-  <h3 class="fs-2 " style=color:red;>Name: ${countryName}</h3>
-  <p>Capital: ${capital}</p>
-  <p>Region: ${region}</p>
-  <p>Population: ${population}</p>
-  <button class=" bg-success primary rounded-5" onclick="showSingleCountry ('${countryName}')">
+  <h2 class="fs-2 " style=color:red;>Name: ${countryName}</h2>
+  <h4>Capital: ${capital}</h4>
+  <h4>Region: ${region}</h4>
+  <h4>Population: ${population}</h4>
+  <button class="fs-2 pe-3 ps-3 bg-info text-light rounded-5" onclick="showSingleCountry ('${countryName}')">
   Details</button>
   </div>
   </div>
   </div>`;
 
-    ViewPost.appendChild(newDiv);
+    ViewCountry.appendChild(newDiv);
   });
 };
+
+/* Show All Country Section JavaScript */
+
 try {
+  loading.innerHTML = "Loading....";
   fetch("https://restcountries.com/v3.1/all")
     .then((response) => response.json())
-    .then((json) => showAllCountries(json /* .slice(0,15) */));
+    .then((json) => showAllCountries(json));
+  loading.innerHTML = "";
 } catch (error) {
-  console.log(error);
+  Errorr.innerHTML = "Error";
 }
 
 const showAllCountries = async (countries) => {
@@ -81,7 +136,7 @@ const showAllCountries = async (countries) => {
   <p>Capital: ${capital}</p>
   <p>Region: ${region}</p>
   <p>Population: ${population}</p>
-  <button class=" bg-success primary rounded-5" onclick="showSingleCountry ('${countryName}')">
+  <button class=" fs-2 pe-3 ps-3 bg-info text-light rounded-5" onclick="showSingleCountry ('${countryName}')">
   Details</button>
   </div>
   </div>

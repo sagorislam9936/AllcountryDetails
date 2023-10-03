@@ -13,15 +13,31 @@
     />
   </head>
   <body>
-    <div class="text-center py-5">
-      <input type="text" placeholder="Country Name" id="postId" />
-      <button id="SeePost" onclick="showPost()">View Country</button>
-      <div class="borderr" id="ViewPost"></div>
-    </div>
     <h4 id="loading"></h4>
+    <!-- Website users section -->
+    <h1 class="text-center py-5 text-danger">Some user who use our Website</h1>
+
+    <h4 class="text-center m-auto">
+      <button id="btn" onclick="SingleUser()">Website Users</button>
+    </h4>
+
+    <div class="borderr" class="text-center py-5 h-" id="showUser"></div>
+
+    <!-- Search By Country Name section -->
+
+    <div class="text-center py-5">
+      <div class="Flex">
+        <h1 class="text-danger">Search by Country Name</h1>
+        <input type="text" placeholder="Country Name" id="CountryName" />
+        <button id="btnForCountry" onclick="showCountry()">View Country</button>
+      </div>
+      <div class="borderr" id="ViewCountry"></div>
+    </div>
+
+    <!-- Show All Country Section -->
     <div class="m-sm-0 m-lg-5" id="singleCountry"></div>
     <div class="row gap-5 py-5 ps-5 gap-md-0 container-fluid" id="users"></div>
-
+    <h3 id="Errorr">Error</h3>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
